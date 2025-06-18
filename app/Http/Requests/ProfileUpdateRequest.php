@@ -25,6 +25,16 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'bio' => ['nullable', 'string', 'max:500'],
+            'contact' => ['nullable', 'regex:/^[0-9]{10}$/'],
+            'profile_picture' => ['nullable', 'image', 'max:2048'], // Max 2MB
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'contact.regex' => 'Please enter a valid number',
         ];
     }
 }
